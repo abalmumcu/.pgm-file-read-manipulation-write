@@ -28,7 +28,7 @@ RUN:
 
 COMPILE:
 
-	g++ pgm_output_2.cpp -o output2
+	g++ creating_new_pgm_file.cpp -o output2
 
 RUN:
 
@@ -61,7 +61,7 @@ RUN:
 
 COMPILE:
 
-	g++ pgm_output_2.cpp -o output2
+	g++ creating_new_pgm_file.cpp -o output2
 
 RUN:
 
