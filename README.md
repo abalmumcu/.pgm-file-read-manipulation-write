@@ -2,41 +2,21 @@
 this repo includes .pgm file read, write and manipulation processes using c++.
 
 
+All input images with PGM extension are defined in the code.
+For this reason, all the input images with the .pgm extension must be in the directory where the code is located in order for the code to be compiled and run. 
+After compilation and execution, all output images generated are automatically saved to the directory where the code is located. 
+In addition, the content information (type, comment line, width, height, and maximum pixel value) of all input images are displayed on the compilation screen after the compilation process.
+
 # FOR WINDOWS:
-
-
-In command prompt(cmd.exe), firstly you need to go to the directory for compile and run processes.
-
-	cd (write the folder directory here e.g. C:\User\Name\Desktop\This_Project)
-then;
-
---------------------------------------------
-*First task*
 
 COMPILE:
 
-	g++ pgm_read_write.cpp -o output
+	g++ main.cpp -o output
 
 RUN: 
 
 	output.exe
 
-
---------------------------------------------
-
-*Second task*
-
-COMPILE:
-
-	g++ creating_new_pgm_file.cpp -o output2
-
-RUN:
-
-	output2.exe
-
---------------------------------------------
---------------------------------------------
---------------------------------------------
 
 
 # FOR LINUX:
@@ -44,25 +24,13 @@ RUN:
 
 Open termimal from folder.
 
---------------------------------------------
-*First task*
 
 COMPILE:
 
-	g++ pgm_read_write.cpp -o output
+	g++ main.cpp -o output
 
 RUN: 
 
 	./output
   
---------------------------------------------
 
-*Second task*
-
-COMPILE:
-
-	g++ creating_new_pgm_file.cpp -o output2
-
-RUN:
-
-	./output2
