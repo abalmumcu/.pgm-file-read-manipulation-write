@@ -11,7 +11,7 @@ In addition, the content information (type, comment line, width, height, and max
 
 COMPILE:
 
-	g++ main.cpp -o output
+	g++ -name_of_the_file-.cpp -o output
 
 RUN: 
 
@@ -27,7 +27,7 @@ Open termimal from folder.
 
 COMPILE:
 
-	g++ main.cpp -o output
+	g++ -name_of_the_file-.cpp -o output
 
 RUN: 
 
