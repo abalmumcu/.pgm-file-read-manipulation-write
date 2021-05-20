@@ -59,7 +59,7 @@ int main() {
                             |std::ios_base::binary
                             |std::ios_base::trunc );
     outfile << "P5" << endl;
-    outfile << "# Created by Alper BALMUMCU for Image Processing Course"<< endl;
+    outfile << "# Created by Alper BALMUMCU"<< endl;
     outfile << col << " " << row << endl;
     outfile << maxvalue << endl;
 
