@@ -96,10 +96,10 @@ int main(){
         cout << " The File Version is Wrong" << endl;
         exit(-1);}
         
-    getline(infile,inputLine);  // '#' satırı okuma islemi
+    getline(infile,inputLine);  
     strcpy(comment,inputLine.data()); 
-    cout << "Comment : " << inputLine << endl; // '#' satı yazdırma
-    infile >> col >> row >> maxvalue; // row col ve maxvalue degerleri okuma
+    cout << "Comment : " << inputLine << endl; 
+    infile >> col >> row >> maxvalue;
     cout << "Width and Height : " << col <<" "<< row << endl;
         
     if (maxvalue == 255){
@@ -195,7 +195,7 @@ int main(){
 ////////////////////////////////////////////////////////////////////////
     vector< vector <unsigned char> > output_sharpened(row, vector <unsigned char> (col, 0));
 
-    int templat;        // template oluşturuldu
+    int templat;       
     for (int i =0; i < row; i++){   
         for(int j =0; j < col; j++){
             templat = img[i][j] + laplaceImage[i][j];   
