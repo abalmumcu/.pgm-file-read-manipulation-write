@@ -14,16 +14,16 @@ using namespace std;
 
 vector < vector<unsigned char> > read_pgm_image(char name[], char & magicnumber1, char & magicnumber2, char comment[], int & row, int & col, int & maxvalue){   
    
-    vector < vector<unsigned char> > img; // olustrulacak resim vector(konteyner)'e atandı.
+    vector < vector<unsigned char> > img; 
     string inputLine = "";
 
     ifstream infile;    
-    infile.open(name, ios::in  | ios::binary); // Dosyayı okuma
+    infile.open(name, ios::in  | ios::binary); 
 
-    infile >> magicnumber1 >> magicnumber2; // P ve 5 ayrı ayrı cekildi
+    infile >> magicnumber1 >> magicnumber2;
 
     
-    if (magicnumber1 == 'P' && magicnumber2 == '5'){ // Eger P5 degilse hata oluştur ve çıkıs yap.
+    if (magicnumber1 == 'P' && magicnumber2 == '5'){ 
         getline(infile,inputLine); 
         cout << "Version : P5"<<endl; }
     
@@ -31,44 +31,43 @@ vector < vector<unsigned char> > read_pgm_image(char name[], char & magicnumber1
         cout << " The File Version is Wrong" << endl;
         exit(-1);}
     
-    getline(infile,inputLine);  // '#' satırı okuma islemi
+    getline(infile,inputLine); 
     strcpy(comment,inputLine.data()); 
-    cout << "Comment : " << inputLine << endl; // '#' satı yazdırma
-    infile >> col >> row >> maxvalue; // row col ve maxvalue degerleri okuma
+    cout << "Comment : " << inputLine << endl;
+    infile >> col >> row >> maxvalue;
     cout << "Width and Height : " << col <<" "<< row << endl;
     
     if (maxvalue == 255){
-        cout << "Maximum Value : " << maxvalue << endl;}        //  Maxvalue 255 degilse hata ver ve çıkış yap.
+        cout << "Maximum Value : " << maxvalue << endl;}     
    
     else {
         cout <<"Maximum Value is not 255!!\nYour Maximum Value: " << maxvalue << endl;
         exit(-2);}
 
 
-    vector <unsigned char> zvc(col);  // zvc column ile olusturuldu  
+    vector <unsigned char> zvc(col);   
 
 
-    fill(zvc.begin(),zvc.end(),0);  // bütün noktalara 0 atandı
-
+    fill(zvc.begin(),zvc.end(),0);  
     for(int i = 0; i < row; i++){   
-        img.push_back(zvc); //img parametresi ile atama yapıldı
+        img.push_back(zvc);
     }
 
 
     int k = 0,l = 0; 
-    long cnt = 0;  // Counter tanımladık
+    long cnt = 0;  
     for(k = 0; k < row; k++){ 
         for(l = 0; l < col; l++){
-            int val = 0; // Görüntü matrisinden alınacak değerler için atanan değişken
+            int val = 0; 
             int p = 7; 
-            char c11;   // matrisin (1,1) değeri
-            infile.get(c11);       // Değeri al         
+            char c11;   
+            infile.get(c11);    
             while(p >=0){      
-                val += (((c11 >> p) & 1) ) * pow(2,p); //Matrisin ilk değerinden başlayarak alınan değeri p ye gönder ve 256 ile çarp
+                val += (((c11 >> p) & 1) ) * pow(2,p);
                 p--; 
             }
-            img[k][l] = val;  // Okunan val değerlerini image'e ata
-            cnt++; // counter 
+            img[k][l] = val; 
+            cnt++; 
             }    
         }
     return img;
@@ -81,23 +80,23 @@ void write_pgm_image(char name[], vector < vector<unsigned char> > & img){
     int row = 500;
     int maxvalue = 255;
 
-    ofstream outfile;   //Yazma işlemi başlangıcı
-    outfile.open(name,ios::out |ios::binary |ios::trunc);   // yazılacak dosya açıldı
+    ofstream outfile;   
+    outfile.open(name,ios::out |ios::binary |ios::trunc);  
 
-    outfile << "P5" << endl;    // PGM dosyası için parametrelerin dosyaya yazılması 
-    outfile << "# Created by Alper BALMUMCU for ELM568 Image Processing Course"<< endl;
+    outfile << "P5" << endl;  
+    outfile << "# Created by Alper BALMUMCU"<< endl;
     outfile << col << " " << row << endl;
     outfile << maxvalue << endl;
     outfile.close();
 
-    ofstream newof;     // Olusturulan image arrayini pgm dosyasına yazdırma aşaması
+    ofstream newof;    
     newof.open(name,ios::out | ios::binary | ios::app);
     
     for( int i = 0; i < row; i++)   
     {
         for( int j = 0; j < col; j++)
         {
-            newof.put(img[i][j]);   // her bir satır sutun için img matrisi pgm dosyasına atıldı.
+            newof.put(img[i][j]);   
         }
     }
     
@@ -106,24 +105,24 @@ void write_pgm_image(char name[], vector < vector<unsigned char> > & img){
 
 vector < vector<unsigned char> > HistogramEqualization(vector < vector<unsigned char> > & input_img, int & row_img, int & col_img) 
 {
-  vector < vector<unsigned char> > output_img(row_img, vector <unsigned char> (col_img, 0));  // girilen row ve column için output img oluşturuldu
-  int row, col, i, cumulative_distribution, min; // kullanılacak parametreler tanımlandı
-  int histogram [256];  // [0-255] 256 değerli histogram değişkeni tanımlandı.
-  int totalPixels = row_img * col_img;  // Formulde kullanılacak toplam piksel değerleri atandı.
-  // Histogram Arrayine 256 adet 0 atıldı.
+  vector < vector<unsigned char> > output_img(row_img, vector <unsigned char> (col_img, 0));  
+  int row, col, i, cumulative_distribution, min;
+  int histogram [256];  
+  int totalPixels = row_img * col_img;
+
   for (i = 0; i < 256; i++){
     histogram[i] = 0;
   }
-  // Histogram arrayine input resmindeki değerler atandı
+  
   for (row = 0; row < row_img; row++) {
     for (col = 0; col < col_img; col++) {
       histogram[input_img[row][col]]++;
     }
   }
-  cumulative_distribution = 0;   // cumulatif distribution function tanımlandı
+   
+  cumulative_distribution = 0;  ı
   min = 0;
-  for (i = 0; i < 256; i++){    // bu for döngüsü içerisinde cdf hesaplandı
-    //İlk döngü için min değeri histogram[0] 'a atandı.
+  for (i = 0; i < 256; i++){    
     if (min == 0){
       min = histogram[i];
     }
@@ -131,11 +130,10 @@ vector < vector<unsigned char> > HistogramEqualization(vector < vector<unsigned 
     histogram[i] = cumulative_distribution;
   }
   int current;
-  //Aşağıdaki for döngüsünde girdi alınan resmin tüm pikselleri üzerinde formul kullanılarak işlem yapılıp output resme atanıyor.
   for (row = 0; row < row_img; row++) {
     for (col = 0; col < col_img; col++) {
       current = histogram[input_img[row][col]];
-      output_img[row][col] = (uint8_t)((current-min)/double(totalPixels-min)*255); // 255 bitlik bir görüntü olduğu için 255 ile çarpıldı ve uint8_t kullanarak yuvarlama işlemi yapıldı.
+      output_img[row][col] = (uint8_t)((current-min)/double(totalPixels-min)*255);
     }    
   }
   return output_img;
@@ -145,27 +143,27 @@ vector < vector<unsigned char> > HistogramEqualization(vector < vector<unsigned 
 
 int main(){
 
-char magicnumber1,magicnumber2,magicnumber3,magicnumber4,magicnumber5,magicnumber6,magicnumber7,magicnumber8; // 4 farklı input resmi P ve 5 değerleri için magicnumber tanımlandı 
-char comment_1[500],comment_2[500],comment_3[500],comment_4[500]; // her bir resim için # ile başlayan yorum satırı değişkeni tanımlandı
-int row_1,col_1,maxvalue1;    // her bir resim için row col ve maxvalue değerleri tanımlandı
+char magicnumber1,magicnumber2,magicnumber3,magicnumber4,magicnumber5,magicnumber6,magicnumber7,magicnumber8;
+char comment_1[500],comment_2[500],comment_3[500],comment_4[500];
+int row_1,col_1,maxvalue1;    
 int row_2,col_2,maxvalue2;
 int row_3,col_3,maxvalue3;
 int row_4,col_4,maxvalue4;
 
     cout<<"\nFig0320(1)(top_left)\n";
-    vector < vector <unsigned char> > img_1; // ilk resim unsigned char olarak tanımlandı ve vectore atandı.
+    vector < vector <unsigned char> > img_1;
 
     img_1 = read_pgm_image("Fig0320(1)(top_left).pgm",magicnumber1,magicnumber2,comment_1,row_1,col_1,maxvalue1); 
-    vector< vector <unsigned char> > output_img_1(row_1, vector <unsigned char> (col_1, 0));  // output resim unsigned char olarak tanımlandı ve vectore atandı.
+    vector< vector <unsigned char> > output_img_1(row_1, vector <unsigned char> (col_1, 0)); 
 
-    output_img_1 = HistogramEqualization(img_1,row_1,col_1); // tanımlanan HistogramEquation fonksiyonuna girdi görüntüsü verildi ve output_img_1 e atandı.
+    output_img_1 = HistogramEqualization(img_1,row_1,col_1);
 
-    write_pgm_image("Fig0320(1)output.pgm",output_img_1); //yazdırma işlemi
+    write_pgm_image("Fig0320(1)output.pgm",output_img_1); 
 
  ///////////////////////////////////////////////////////////////////////////   
     cout<<"\nFig0320(2)(2nd_from_top)\n";    
 
-    vector < vector <unsigned char> > img_2; // 
+    vector < vector <unsigned char> > img_2; 
 
     img_2 = read_pgm_image("Fig0320(2)(2nd_from_top).pgm",magicnumber3,magicnumber4,comment_2,row_2,col_2,maxvalue2);
     vector< vector <unsigned char> > output_img_2(row_2, vector <unsigned char> (col_2, 0));
