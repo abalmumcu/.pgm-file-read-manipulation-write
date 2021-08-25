@@ -17,24 +17,24 @@ int main() {
     uint8_t k = 0;
     uint8_t txbuf[256];
 
-    fstream dosya;
-    dosya.open("output2.pgm", std::ios_base::out
+    fstream file;
+    file.open("output2.pgm", std::ios_base::out
                             |std::ios_base::binary
                             |std::ios_base::trunc );
     
-    dosya << "P5" << endl;
-    dosya << "# Created by Alper BALMUMCU for Image Processing Course"<< endl;
-    dosya << columns << " " << rows << endl;
-    dosya << maxval << endl;
+    file << "P5" << endl;
+    file << "# Created by Alper BALMUMCU"<< endl;
+    file << columns << " " << rows << endl;
+    file << maxval << endl;
 
     for (int i = 0; i < rows; i++){
         for (int j = 0; j < columns ; j++){                       
             do
             {
             txbuf[k] = k;
-            dosya << static_cast<char>(k);
+            file << static_cast<char>(k);
             } while (k++ != 255);    
         }
     }
-    dosya.close();
+    file.close();
 }
