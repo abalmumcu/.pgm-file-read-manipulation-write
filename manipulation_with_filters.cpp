@@ -145,7 +145,7 @@ int main() {
     cout << "//                                             IMAGE NEGATIVES            \n";
     cout << "////////////////////////////////////////////////////////////////////////////////////////////////////////\n\n";
 
-    vector < vector <unsigned char> > img_negative; // negatifi alınacak resim tanımlandı
+    vector < vector <unsigned char> > img_negative; 
 
     img_negative = read_pgm_image("Fig0304(a)(breast_digital_Xray).pgm",magicnumber_1,magicnumber_2,comment_1,row_1,col_1,maxvalue_1);
     vector< vector <unsigned char> > negative_img(row_1, vector <unsigned char> (col_1, 0)); 
@@ -295,7 +295,7 @@ int main() {
         }                                        
     }
 
-    ofstream outfile;   //Yazma işlemi başlangıcı
+    ofstream outfile;   
     outfile.open("Fig0335(c).pgm",ios::out |ios::binary |ios::trunc);   
 
     outfile << "P5" << endl;    
