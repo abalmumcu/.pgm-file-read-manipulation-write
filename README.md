@@ -58,6 +58,3 @@ To use the ".pgm File Read, Manipulation, and Write" project, follow these steps
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-```
-
-Feel free to customize the README file with additional sections or specific instructions related to your project.
